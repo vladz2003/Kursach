@@ -1,0 +1,98 @@
+﻿@model (CarsViewModel cM, CarServiceLibrary.Models.ViewModels.ServicesViewModel vm)
+
+@{
+}
+<div class="container text-center py-3">
+    <h3>Услуги типа: <span class="text-black-50">детейлинг</span></h3>
+    @*<button class="btn btn-danger">Добавить</button>*@
+    <div class="row row-cols-4 row-cols-lg-4">
+        @foreach (var item in Model.vm.Services)
+        {
+            <div class="col my-4">
+                <div id="serviceModal"
+                 class="card bg-dark border-light rounded p-3 d-flex flex-column "
+                 style="height:300px;"
+                 onclick="showModal(@item.Id)"
+                 data-bs-toggle="modal"
+                 data-bs-target="#GetService">
+                    <img src="~/Images/Detailing/@item.ServicesImage"
+                     class="card-img-top"
+                     alt="Detailing logo"
+                     aria-label="Detailing images">
+                    <div class="card-body d-flex flex-column text-center align-items-center">
+                        <h5 class="card-title text-light">
+                            @item.ServiceName
+                        </h5>
+                    </div>
+                    <a href="#" class="btn btn-outline-danger" 
+                       data-bs-toggle="modal"
+	                   data-bs-target="#EditService">
+                        Изменить
+                    </a>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<!-- Modal EditService -->
+<div class="modal fade"
+     id="EditService"
+     tabindex="-1"
+     aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"
+                    id="exampleModalLabel">
+                    Изменение услуги
+                </h5>
+                <button type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Close">
+                </button>
+            </div>
+            <div class="modal-body">
+                <input type="text"
+                       class="form-control my-2 py-2 fs-5"
+                       id="name"
+                       placeholder="Имя"
+                       name="serviceName">
+                <input type="text"
+                       class="form-control my-2 py-2 fs-5"
+                       id="name"
+                       placeholder="Стоимость"
+                       name="servicePrice">
+                <input type="text"
+                       class="form-control my-2 py-2 fs-5"
+                       id="name"
+                       placeholder="Изображение"
+                       name="serviceImage">
+                <input type="text"
+                       class="form-control my-2 py-2 fs-5"
+                       id="name"
+                       placeholder="Описание"
+                       name="serviceDesc">
+                <select @*asp-for=""*@
+                        class="form-control my-2 py-2 fs-5"
+                        @*asp-items="@(new SelectList(ViewBag.ListofCars, "Value", "Text"))"*@
+                        name="serviceCategory">
+                </select>
+                <select @*asp-for=""*@
+                        class="form-control my-2 py-2 fs-5"
+                        @*asp-items="@(new SelectList(ViewBag.ListofCars, "Value", "Text"))"*@
+                        name="serviceType">
+                </select>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button"
+                        class="btn btn-danger">
+                    Сохранить
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
